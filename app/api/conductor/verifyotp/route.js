@@ -31,7 +31,7 @@ export async function POST(request){
         statusText = "VALID";
     }
     console.log("status: ", statusText);
-    resp = new Response(JSON.stringify({validity: statusText}), {status: 200})
+    resp = new Response(JSON.stringify({validity: statusText.concat(["\n", "AMOUNT: ", amount])}), {status: 200})
     return resp;
     //on conductor, search for the ticket
     //approve the customer and remove the ticket   

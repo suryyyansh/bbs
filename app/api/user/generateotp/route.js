@@ -13,7 +13,7 @@ export async function POST(request){
 
     //add to db
     const tempuser = await User.findOne({email: user.email});
-    if(tempuser.allowed_ride == false || user.amount > tempuser.funds){
+    if(tempuser.allowed_ride == false || Number(user.amount) > Number(tempuser.funds) || user.amount < 0){
         return new Response(null, {status: 200, statusText: "UNAUTHORIZED TO RIDE"});
     }
 

@@ -42,9 +42,6 @@ const Nav = () => {
             ) : (
               <Link className="nav_item" href="/user/addfunds">ADD FUNDS</Link>
             )}
-            {!isUserConductor() ? (
-            <Link className="nav_item" href="/user/addfunds">ADD FUNDS</Link>
-            ) : (<></>)}
             </div>
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out

@@ -18,7 +18,7 @@ export async function CreateTicket(data, setVisibleOTP, email){
             setVisibleOTP(otp);            
         } else if (response.statusText === "UNAUTHORIZED TO RIDE"){
             console.log("User UNAUTHORIZED to ride. OTP generation rejected.")
-            setVisibleOTP("UNAUTHORIZED");
+            setVisibleOTP("UNAUTHORIZED OR INSUFFICIENT FUNDS");
         }
     } catch (error) {
         console.log("error: ",error);

@@ -5,8 +5,11 @@ import NewAdminForm from "@components/NewAdminForm";
 import UserList from "@components/UserList";
 import EditUserForm from "@components/EditUserForm";
 import PaymentList from "@components/PaymentList";
+import { useSession } from "next-auth/react";
 
 const AdminPage = () => {
+
+    const {data: session} = useSession();
 
     const [users, setUsers] = useState([])
     const [userAllowed, setUserAllowed] = useState(true);
@@ -15,6 +18,7 @@ const AdminPage = () => {
     const [newUser, setNewUser] = useState({})
     const [newUserAdded, setNewUserAdded] = useState(false);
     const [payments, setPayments] = useState([])
+
     useEffect(()=> {
         fetch('/api/user/getallusers', {
             method: 'POST',
@@ -58,6 +62,9 @@ const AdminPage = () => {
         }
     
 
+    if(session == null || session?.user.role !== "admin"){
+        return (<div>401 UNAUTHORIZED</div>)
+    }
     return (
         <div className = "grid grid-cols-3 gap-8">
             <div className="flex-col space-y-8 ">

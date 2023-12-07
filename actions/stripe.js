@@ -27,7 +27,7 @@ export async function createCheckoutSession(data, email){
         },
       ],
       success_url: `${headers().get('origin')}/user`,
-      cancel_url: `${headers().get('origin')}/cancelled`,
+      cancel_url: `${headers().get('origin')}/user`,
     })
 
   redirect(checkoutSession.url)

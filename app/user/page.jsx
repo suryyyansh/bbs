@@ -2,15 +2,11 @@
 
 import {useState, React} from 'react'
 import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
 import TicketForm from '@components/TicketForm';
 
 const UserMain = () => {
 
   const {data: session, status: status} = useSession();
-  if(status !== 'authenticated'){
-    redirect('/login', 'replace');
-  }
   
   const [currFunds, setCurrFunds] = useState(0);
   const [visibleOTP, setVisibleOTP] = useState(0);
@@ -23,6 +19,10 @@ const UserMain = () => {
   }).then(response => {
       response.json().then(json => {setCurrFunds(JSON.parse(json.props.user).funds);});
   })
+
+  if(session == null || session.user.role === "conductor"){
+    return(<div>401 UNAUTHORIZED</div>)
+  }
 
   return (
     <div className="flex flex-col prompt_card gap-2">

@@ -14,13 +14,13 @@ const UserMain = () => {
   fetch('/api/user/get',{
     method: 'POST',
     body: JSON.stringify({
-      email: session.user.email
+      email: session?.user?.email
     }),
   }).then(response => {
       response.json().then(json => {setCurrFunds(JSON.parse(json.props.user).funds);});
   })
 
-  if(session == null || session.user.role === "conductor"){
+  if(session == null || session?.user?.role === "conductor"){
     return(<div>401 UNAUTHORIZED</div>)
   }
 

@@ -10,9 +10,6 @@ import PaymentList from '@components/PaymentList';
 const UserMain = () => {
 
   const {data: session, status: status} = useSession();
-  if(status !== 'authenticated'){
-    redirect('/login', 'replace');
-  }
 
   const [currFunds, setCurrFunds] = useState(0);
   const [payments, setPayments] = useState([]);
@@ -29,11 +26,14 @@ const UserMain = () => {
   fetch('/api/user/get',{
     method: 'POST',
     body: JSON.stringify({
-      email: session.user.email
+      email: session?.user?.email
     }),
   }).then(response => {
       response.json().then(json => {setCurrFunds(JSON.parse(json.props.user).funds);});
   })    
+  if(session == null || session?.user?.role === "conductor"){
+    return(<div>401 UNAUTHORIZED</div>)
+  }
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col prompt_card gap-2">

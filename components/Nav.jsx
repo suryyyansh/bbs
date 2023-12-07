@@ -47,7 +47,7 @@ const Nav = () => {
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out
             </button>
-            <Link href="/user"><p className="text-lg">{session?.user.email.split('@')[0]} | {session?.user.role}</p></Link>
+            <Link href="/user"><p className="text-lg">{session?.user?.email.split('@')[0]} | {session?.user?.role}</p></Link>
           
           </div>
         ):(

@@ -10,6 +10,7 @@ export async function CreateTicket(data, setVisibleOTP, email){
             })
         })
         
+        console.log("statustext: ", response.statusText);
         if(response.statusText === "OTP GENERATED") {
             optgenerated = true;
             const json = await response.json();

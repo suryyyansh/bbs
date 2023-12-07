@@ -13,9 +13,9 @@ export async function POST(request){
 
     //add to db
     const tempuser = await User.findOne({email: user.email});
-    // if(tempuser.allowed_ride == false || Number(user.amount) > Number(tempuser.funds) || user.amount < 0){
-    //     return new Response(null, {status: 200, statusText: "UNAUTHORIZED TO RIDE"});
-    // }
+    if(tempuser.allowed_ride == false || Number(user.amount) > Number(tempuser.funds) || user.amount < 0){
+        return new Response(JSON.stringify({statusText: "UNAUTHORIZED TO RIDE"}), {status: 200});
+    }
 
     await User.findOneAndUpdate({
         email: user.email
@@ -25,7 +25,7 @@ export async function POST(request){
         amount_committed: user.amount
     });
 
-    const resp = new Response(JSON.stringify({otp: OTP}), {status: 200, statusText: "OTP GENERATED"})
+    const resp = new Response(JSON.stringify({otp: OTP, statusText: "OTP GENERATED"}), {status: 200})
     return resp;
     //on conductor, search for the ticket
     //approve the customer and remove the ticket   

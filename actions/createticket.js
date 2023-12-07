@@ -10,14 +10,14 @@ export async function CreateTicket(data, setVisibleOTP, email){
             })
         })
         
+        const json = await response.json();
         console.log("statustext: ", response.statusText);
-        if(response.statusText === "OTP GENERATED") {
+        if(json.statusText === "OTP GENERATED") {
             optgenerated = true;
-            const json = await response.json();
             const otp = json.otp;
             console.log("otp: ",otp);
             setVisibleOTP(otp);            
-        } else if (response.statusText === "UNAUTHORIZED TO RIDE"){
+        } else if (json.statusText === "UNAUTHORIZED TO RIDE"){
             console.log("User UNAUTHORIZED to ride. OTP generation rejected.")
             setVisibleOTP("UNAUTHORIZED OR INSUFFICIENT FUNDS");
         }

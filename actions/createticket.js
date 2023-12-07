@@ -10,13 +10,15 @@ export async function CreateTicket(data, setVisibleOTP, email){
             })
         })
         
-        if(response.status == 200) {
+        if(response.statusText === "OTP GENERATED") {
             optgenerated = true;
             const json = await response.json();
             const otp = json.otp;
             console.log("otp: ",otp);
-            setVisibleOTP(otp);
-
+            setVisibleOTP(otp);            
+        } else if (response.statusText === "UNAUTHORIZED TO RIDE"){
+            console.log("User UNAUTHORIZED to ride. OTP generation rejected.")
+            setVisibleOTP("UNAUTHORIZED");
         }
     } catch (error) {
         console.log("error: ",error);

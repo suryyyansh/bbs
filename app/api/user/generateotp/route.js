@@ -12,6 +12,11 @@ export async function POST(request){
     await connectToDB();
 
     //add to db
+    const tempuser = await User.findOne({email: user.email});
+    if(tempuser.allowed_ride == false){
+        return new Response(null, {status: 200, statusText: "UNAUTHORIZED TO RIDE"});
+    }
+
     await User.findOneAndUpdate({
         email: user.email
     },

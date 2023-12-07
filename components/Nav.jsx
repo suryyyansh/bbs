@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { signOut, useSession} from 'next-auth/react'
+import { isUserRole } from '@lib/libcheckuser';
 
 const Nav = () => {
   const {data: session} = useSession();
@@ -36,27 +37,21 @@ const Nav = () => {
             {isUserAdmin() ? (
                 <Link className="nav_item" href="/admin">ADMIN DASHBOARD</Link>
               ) : (<></>)}
+            {isUserConductor() ? (
+                <Link className="nav_item" href="/conductor">CONDUCTOR</Link>
+            ) : (<></>)}
+            {isUserRole({session: session, role: "admin"}) || isUserRole({session: session, role: "admin"}) ? (
             <Link className="nav_item" href="/user/addfunds">ADD FUNDS</Link>
+            ) : (<></>)}
             </div>
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out
             </button>
-            <Link href="/user"><p className="text-lg">{session?.user.email.split('@')[0]}</p></Link>
+            <Link href="/user"><p className="text-lg">{session?.user.email.split('@')[0]} | {session?.user.role}</p></Link>
           
           </div>
         ):(
-          <>
-          {
-            <Link 
-              type="button"
-              className="black_btn"
-              href="/login"
-            >
-              Sign-in with LNMIIT
-            </Link>
-            }
-            
-          </>
+          <></>
         )}
       </div>
 

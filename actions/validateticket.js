@@ -7,11 +7,10 @@ export async function ValidateTicket(data, setValidity){
                 otp: data.get("otp")
             })
         })
-        
-        if(response.statusText === "VALID") {
+        var json = await response.json();
+        if(json.validity === "VALID") {
             setValidity("VALID");
-        }
-        if(response.statusText === "INVALID"){
+        } else{
             setValidity("INVALID");
         }
     } catch (error) {

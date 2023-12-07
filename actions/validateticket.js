@@ -11,7 +11,7 @@ export async function ValidateTicket(data, setValidity){
         if(response.statusText === "VALID") {
             setValidity("VALID");
         }
-        if(response.statusText == "INVALID"){
+        if(response.statusText === "INVALID"){
             setValidity("INVALID");
         }
     } catch (error) {

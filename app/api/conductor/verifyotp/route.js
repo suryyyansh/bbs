@@ -7,22 +7,15 @@ export async function POST(request){
     const otp = json.otp;
     var resp;
 
-    const isInDesiredForm = (str) => {
-        var n = Math.floor(Number(str));
-        return n !== Infinity && String(n) === str && n >= 0;
-    }
-
-    if(!isInDesiredForm(json.otp))
-    return new Response(null, {status: 200, statusText: "INVALID"})
-
     console.log("otp: ",otp)
 
     //generate new ticket (5 digit code)
     await connectToDB();
     //add to db
-    const amount = await (await User.findOne({active_otp: otp})).amount_committed
+    var user = await User.findOne({active_otp: otp ? otp : 0})
+    const amount = user ? user.amount_committed : 0;
     console.log("amount: ",amount)
-    const user = await User.findOneAndUpdate({
+    user = await User.findOneAndUpdate({
         active_otp: otp
     },
     {
@@ -34,10 +27,9 @@ export async function POST(request){
     })
 
     var statusText = "INVALID";
-    if(user){
+    if(user && otp != 0){
         statusText = "VALID";
     }
-    asd
     console.log("status: ", statusText);
     resp = new Response(null, {status: 200, statusText: statusText})
     return resp;

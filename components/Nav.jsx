@@ -39,7 +39,9 @@ const Nav = () => {
               ) : (<></>)}
             {isUserConductor() ? (
                 <Link className="nav_item" href="/conductor">CONDUCTOR</Link>
-            ) : (<></>)}
+            ) : (
+              <Link className="nav_item" href="/user/addfunds">ADD FUNDS</Link>
+            )}
             {!isUserConductor() ? (
             <Link className="nav_item" href="/user/addfunds">ADD FUNDS</Link>
             ) : (<></>)}

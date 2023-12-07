@@ -7,7 +7,7 @@ export async function POST(request){
     console.log(user.amount);
 
     //generate new ticket (5 digit code)
-    const OTP = Math.floor(Math.random() * 99998) + 1;
+    const OTP = Math.floor(Math.random() * 89999) + 10000;
 
     await connectToDB();
 

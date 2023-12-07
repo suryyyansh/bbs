@@ -40,7 +40,7 @@ const Nav = () => {
             {isUserConductor() ? (
                 <Link className="nav_item" href="/conductor">CONDUCTOR</Link>
             ) : (<></>)}
-            {isUserRole({session: session, role: "admin"}) || isUserRole({session: session, role: "admin"}) ? (
+            {!isUserConductor() ? (
             <Link className="nav_item" href="/user/addfunds">ADD FUNDS</Link>
             ) : (<></>)}
             </div>

@@ -13,6 +13,11 @@ const UserMain = () => {
 
   const [currFunds, setCurrFunds] = useState(0);
   const [payments, setPayments] = useState([]);
+
+  if(session == null || session?.user?.role === "conductor"){
+    return(<div>401 UNAUTHORIZED</div>)
+  }
+
   useEffect(() => {
     fetch('/api/user/getpayments', {
             method: 'POST',
@@ -31,9 +36,7 @@ const UserMain = () => {
   }).then(response => {
       response.json().then(json => {setCurrFunds(JSON.parse(json.props.user).funds);});
   })    
-  if(session == null || session?.user?.role === "conductor"){
-    return(<div>401 UNAUTHORIZED</div>)
-  }
+  
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col prompt_card gap-2">

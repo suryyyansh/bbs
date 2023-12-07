@@ -11,6 +11,9 @@ const UserMain = () => {
   const [currFunds, setCurrFunds] = useState(0);
   const [visibleOTP, setVisibleOTP] = useState(0);
 
+  if(session == null || session?.user?.role === "conductor"){
+    return(<div>401 UNAUTHORIZED</div>)
+  }
   fetch('/api/user/get',{
     method: 'POST',
     body: JSON.stringify({
@@ -20,9 +23,7 @@ const UserMain = () => {
       response.json().then(json => {setCurrFunds(JSON.parse(json.props.user).funds);});
   })
 
-  if(session == null || session?.user?.role === "conductor"){
-    return(<div>401 UNAUTHORIZED</div>)
-  }
+  
 
   return (
     <div className="flex flex-col prompt_card gap-2">

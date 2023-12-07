@@ -14,7 +14,6 @@ export async function POST(request){
     //add to db
     var user = await User.findOne({active_otp: otp ? otp : 0})
     const amount = user ? user.amount_committed : 0;
-    console.log("amount: ",amount)
     user = await User.findOneAndUpdate({
         active_otp: otp
     },
@@ -31,8 +30,10 @@ export async function POST(request){
         statusText = "VALID";
     }
     console.log("status: ", statusText);
+    console.log("amount: ",amount)
+
     //adding amount using concat
-    resp = new Response(JSON.stringify({validity: statusText.concat(["\n", "AMOUNT: ", amount])}), {status: 200})
+    resp = new Response(JSON.stringify({validity: statusText, amount: amount}), {status: 200})
 
     return resp;
     //on conductor, search for the ticket

@@ -6,11 +6,13 @@ export default function ConductorForm() {
   const [loading] = useState(false);
   const [passengerOTP, setPassengerOTP] = useState("");
   const [validity, setValidity] = useState("");
+  const [amount, setAmount] = useState(0);
 
   return (
     <form 
     className="flex flex-col items-center gap-2 prompt_card"
-    action={(data) => ValidateTicket(data, setValidity)}>
+    action={(data) => ValidateTicket(data, setValidity, setAmount)}>
+      <label className="logo_text">ENTER OTP</label>
       <textarea
         name="otp"
         value={passengerOTP}
@@ -29,6 +31,7 @@ export default function ConductorForm() {
         <p>ValidateOTP</p>
       </button>
       <label className = "text-lg">{validity === "" ? (<></>): (<>STATUS: {validity}</>)}</label>
+      <label className = "text-lg">{amount == 0 ? (<></>): (<>AMOUNT: {amount}</>)}</label>
     </form>
   )
 }

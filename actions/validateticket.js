@@ -1,4 +1,4 @@
-export async function ValidateTicket(data, setValidity){
+export async function ValidateTicket(data, setValidity, setAmount){
 
    try {
         const response = await fetch('/api/conductor/verifyotp', {
@@ -10,6 +10,8 @@ export async function ValidateTicket(data, setValidity){
         var json = await response.json();
         if(json.validity === "VALID") {
             setValidity("VALID");
+            console.log(json.amount);
+            setAmount(Number(json.amount));
         } else{
             setValidity("INVALID");
         }

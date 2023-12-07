@@ -7,7 +7,7 @@ const Conductor = () => {
 
   const {data: session} = useSession();
   
-  if(session == null || session?.user.role !== "conductor"){
+  if(session == null || session?.user.role === "user"){
     return (<div>ONLY CONDUCTORS MAY ACCESS THIS PAGE</div>)
   }
   return (

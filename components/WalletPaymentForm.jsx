@@ -29,7 +29,7 @@ export default function CheckoutForm() {
         type="submit"
         disabled={loading}
       >
-        <p>Buy Ticket</p>
+        <p>Add Funds</p>
       </button>
     </form>
   )

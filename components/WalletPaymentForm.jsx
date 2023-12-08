@@ -29,6 +29,7 @@ export default function CheckoutForm() {
         type="submit"
         disabled={loading}
       >
+       {/* adding funds */}
         <p>Add Funds</p>
       </button>
     </form>
